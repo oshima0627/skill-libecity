@@ -8,12 +8,15 @@
 
 ```
 listings/assets/
-├─ 02-teiji-jikko.png     ← 出品37160 に登録している画像（完成品）
+├─ 01-ai-shindan.png      ← 出品34217 に登録している画像（完成品）
+├─ 02-teiji-jikko.png     ← 出品37160
 ├─ 03-henkou-kenchi.png   ← 出品37161
 ├─ 04-gyomu-system.png    ← 出品37162
-├─ 01-ai-shindan.png      ← 出品34217（旧・Canva製）
+├─ 05-mail-ai.png         ← 出品34218
+├─ 06-sagyo-jidoka.png    ← 出品34120
 ├─ build-thumbnails.mjs   ← pptx を組み立てる
 ├─ pptx/*.pptx            ← PowerPointで直接編集できる元ファイル（1ファイル1スライド）
+├─ legacy/                ← 差し替え前の旧画像（戻せるように保管）
 └─ illust/                ← イラストの元。SVG → 透過PNG
    ├─ gen-illust.mjs
    └─ *.svg / *.html / *.png
@@ -25,7 +28,7 @@ listings/assets/
 # 1. イラストを SVG から透過PNGにする（イラストを変えたときだけ）
 node listings/assets/illust/gen-illust.mjs
 CH="/c/Program Files/Google/Chrome/Application/chrome.exe"
-for f in 01-teiji 02-kenchi 03-system; do
+for f in 01-teiji 02-kenchi 03-system 04-shindan 05-mail 06-jidoka; do
   "$CH" --headless --disable-gpu --hide-scrollbars --default-background-color=00000000 \
     --force-device-scale-factor=2 --window-size=600,600 \
     --screenshot="$(cygpath -w "$PWD/listings/assets/illust/$f.png")" \
@@ -37,7 +40,7 @@ node listings/assets/build-thumbnails.mjs
 
 # 3. pptx を PNG にする（LibreOffice）
 SO="/c/Program Files/LibreOffice/program/soffice.exe"
-for f in 02-teiji-jikko 03-henkou-kenchi 04-gyomu-system; do
+for f in 01-ai-shindan 02-teiji-jikko 03-henkou-kenchi 04-gyomu-system 05-mail-ai 06-sagyo-jidoka; do
   "$SO" --headless --norestore \
     --convert-to 'png:impress_png_Export:{"PixelWidth":{"type":"long","value":1320},"PixelHeight":{"type":"long","value":880}}' \
     --outdir "$(cygpath -w "$PWD/listings/assets")" \

@@ -52,6 +52,33 @@ const CARDS = [
     illust: '03-system.png',
     notes: 'リベシティ スキルマーケット 出品37162 のサムネイル',
   },
+  {
+    id: '01-ai-shindan',
+    accent: '4F63C4',
+    kicker: 'AI活用の現状診断',
+    head: ['やらない事も、', '書きます。'],
+    price: '5,000円',
+    illust: '04-shindan.png',
+    notes: 'リベシティ スキルマーケット 出品34217 のサムネイル',
+  },
+  {
+    id: '05-mail-ai',
+    accent: 'DB553F',
+    kicker: '問い合わせの自動返信',
+    head: ['返信を、', '待たせない。'],
+    price: '20,000円',
+    illust: '05-mail.png',
+    notes: 'リベシティ スキルマーケット 出品34218 のサムネイル',
+  },
+  {
+    id: '06-sagyo-jidoka',
+    accent: '10808A',
+    kicker: '毎日の繰り返し作業',
+    head: ['コピペと転記、', 'やめませんか。'],
+    price: '30,000円',
+    illust: '06-jidoka.png',
+    notes: 'リベシティ スキルマーケット 出品34120 のサムネイル',
+  },
 ];
 
 for (const c of CARDS) {

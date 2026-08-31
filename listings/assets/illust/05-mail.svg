@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <g stroke="#1f3348" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  
+  <circle cx="300" cy="300" r="250" fill="#fff6e5" stroke="none"/>
+
+  <!-- 届いた問い合わせメール（左上） -->
+  <g>
+    <rect x="84" y="132" width="158" height="110" rx="12" fill="#ffffff"/>
+    <path d="M84 146 l79 58 l79 -58"/>
+    <circle cx="256" cy="136" r="21" fill="#f4715f" stroke-width="6"/>
+  </g>
+
+  <!-- AI が読んで返す -->
+  <g>
+    <line x1="300" y1="250" x2="300" y2="220"/>
+    <circle cx="300" cy="210" r="14" fill="#f4715f"/>
+    <rect x="222" y="250" width="156" height="132" rx="30" fill="#ffffff"/>
+    <circle cx="264" cy="302" r="14" fill="#1f3348" stroke="none"/>
+    <circle cx="336" cy="302" r="14" fill="#1f3348" stroke="none"/>
+    <path d="M272 340 q28 22 56 0"/>
+    <path d="M222 298 h-22 M378 298 h22"/>
+  </g>
+
+  <!-- すぐ飛んでいく返信（右下） -->
+  <g>
+    <rect x="356" y="404" width="160" height="110" rx="12" fill="#ffffff"/>
+    <path d="M356 418 l80 58 l80 -58"/>
+  </g>
+  <g stroke="#2a9fd6" stroke-width="13">
+    <line x1="330" y1="430" x2="272" y2="430"/>
+    <line x1="330" y1="482" x2="286" y2="482"/>
+  </g>
+
+  </g></svg>

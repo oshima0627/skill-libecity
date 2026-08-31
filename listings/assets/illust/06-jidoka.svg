@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <g stroke="#1f3348" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+  
+  <circle cx="300" cy="300" r="250" fill="#fff6e5" stroke="none"/>
+
+  <!-- コピペ・転記のもとになる表（左上） -->
+  <g>
+    <rect x="78" y="130" width="184" height="150" rx="12" fill="#ffffff"/>
+    <path d="M78 166 v-24 a12 12 0 0 1 12 -12 h160 a12 12 0 0 1 12 12 v24 z" fill="#159aa6"/>
+    <line x1="78" y1="224" x2="262" y2="224"/>
+    <line x1="170" y1="166" x2="170" y2="280"/>
+  </g>
+
+  <!-- 転記して通知するところまで自動 -->
+  <g stroke="#159aa6" stroke-width="20">
+    <path d="M282 204 h30"/>
+    <path d="M300 182 l26 22 l-26 22"/>
+  </g>
+
+  <!-- 通知（右上） -->
+  <g>
+    <rect x="336" y="130" width="188" height="140" rx="22" fill="#ffffff"/>
+    <path d="M372 270 v46 l46 -46 z" fill="#ffffff"/>
+    <line x1="366" y1="176" x2="494" y2="176" stroke-width="14"/>
+    <line x1="366" y1="220" x2="452" y2="220" stroke="#159aa6" stroke-width="14"/>
+  </g>
+
+  <!-- 仕組みとして回り続ける -->
+  <g transform="translate(258,424)">
+    <circle cx="0" cy="0" r="56" fill="#159aa6"/>
+    <circle cx="0" cy="0" r="21" fill="#ffffff"/>
+    <line x1="0" y1="-76" x2="0" y2="-56"/><line x1="0" y1="56" x2="0" y2="76"/>
+    <line x1="-76" y1="0" x2="-56" y2="0"/><line x1="56" y1="0" x2="76" y2="0"/>
+    <line x1="-54" y1="-54" x2="-40" y2="-40"/><line x1="40" y1="40" x2="54" y2="54"/>
+    <line x1="54" y1="-54" x2="40" y2="-40"/><line x1="-40" y1="40" x2="-54" y2="54"/>
+  </g>
+  <g transform="translate(372,472)">
+    <circle cx="0" cy="0" r="40" fill="#f7b32b"/>
+    <circle cx="0" cy="0" r="15" fill="#ffffff"/>
+    <line x1="0" y1="-56" x2="0" y2="-40"/><line x1="0" y1="40" x2="0" y2="56"/>
+    <line x1="-56" y1="0" x2="-40" y2="0"/><line x1="40" y1="0" x2="56" y2="0"/>
+    <line x1="-40" y1="-40" x2="-28" y2="-28"/><line x1="28" y1="28" x2="40" y2="40"/>
+    <line x1="40" y1="-40" x2="28" y2="-28"/><line x1="-28" y1="28" x2="-40" y2="40"/>
+  </g>
+
+  </g></svg>
