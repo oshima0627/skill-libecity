@@ -1,0 +1,147 @@
+// スキルマーケットのサムネイルを PowerPoint (.pptx) で組み立てる。
+//
+//   node listings/assets/build-thumbnails.mjs
+//
+// 出力: listings/assets/pptx/<id>.pptx（1ファイル1スライド・3:2）
+// PNG 化は soffice で行う。手順は listings/assets/README.md を参照。
+//
+// イラストは listings/assets/illust/*.png（gen-illust.mjs で生成した透過PNG）。
+// PowerPoint で開けば文字も配置も自由に編集できる。差し替えたい場合は
+// 画像を右クリック →「図の変更」で Canva や AI 生成の画像に置き換えられる。
+
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import pptxgen from 'pptxgenjs';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const OUT = path.join(HERE, 'pptx');
+fs.mkdirSync(OUT, { recursive: true });
+
+const INK = '1F3348';
+const MUTED = '6B7E90';
+const BG = 'FFFDF8';
+const HEAD_FONT = 'HGP創英角ｺﾞｼｯｸUB'; // 半角カナ。レジストリ登録名と一致させること
+const BODY_FONT = 'メイリオ';
+
+const CARDS = [
+  {
+    id: '02-teiji-jikko',
+    accent: '2A9FD6',
+    kicker: '定時実行の自動化',
+    head: ['毎朝のPC作業、', '無人で。'],
+    price: '15,000円',
+    illust: '01-teiji.png',
+    notes: 'リベシティ スキルマーケット 出品37160 のサムネイル',
+  },
+  {
+    id: '03-henkou-kenchi',
+    accent: '2FA36A',
+    kicker: 'サイトの変更検知',
+    head: ['更新を、', '見逃さない。'],
+    price: '10,000円',
+    illust: '02-kenchi.png',
+    notes: 'リベシティ スキルマーケット 出品37161 のサムネイル',
+  },
+  {
+    id: '04-gyomu-system',
+    accent: 'D99312',
+    kicker: '業務システム開発',
+    head: ['テストを付けて', '納品します。'],
+    price: '150,000円〜',
+    illust: '03-system.png',
+    notes: 'リベシティ スキルマーケット 出品37162 のサムネイル',
+  },
+];
+
+for (const c of CARDS) {
+  const pres = new pptxgen();
+  pres.defineLayout({ name: 'THUMB32', width: 6.6, height: 4.4 });
+  pres.layout = 'THUMB32';
+
+  const slide = pres.addSlide();
+  slide.background = { color: BG };
+
+  // イラスト（右）
+  slide.addImage({
+    path: path.join(HERE, 'illust', c.illust),
+    x: 3.42,
+    y: 0.6,
+    w: 3.05,
+    h: 3.05,
+  });
+
+  // キッカー
+  slide.addText(c.kicker, {
+    isTextBox: true,
+    x: 0.42,
+    y: 0.62,
+    w: 3.0,
+    h: 0.32,
+    margin: 0,
+    fontFace: BODY_FONT,
+    fontSize: 15,
+    bold: true,
+    color: c.accent,
+    charSpacing: 1,
+  });
+
+  // 見出し
+  slide.addText(c.head.map((t, i) => ({ text: t, options: { breakLine: i < c.head.length - 1 } })), {
+    isTextBox: true,
+    x: 0.4,
+    y: 1.02,
+    w: 3.2,
+    h: 1.5,
+    margin: 0,
+    fontFace: HEAD_FONT,
+    fontSize: 34,
+    color: INK,
+    lineSpacingMultiple: 1.16,
+    valign: 'top',
+  });
+
+  // 価格ピル
+  slide.addShape(pres.ShapeType.roundRect, {
+    x: 0.42,
+    y: 2.74,
+    w: 1.92,
+    h: 0.6,
+    rectRadius: 0.3,
+    fill: { color: c.accent },
+    line: { color: c.accent, width: 0 },
+  });
+  slide.addText(c.price, {
+    isTextBox: true,
+    x: 0.42,
+    y: 2.74,
+    w: 1.92,
+    h: 0.6,
+    margin: 0,
+    align: 'center',
+    valign: 'middle',
+    fontFace: BODY_FONT,
+    fontSize: 20,
+    bold: true,
+    color: 'FFFFFF',
+  });
+
+  // 名前
+  slide.addText('なおたか@沖縄の業務システム屋×AI', {
+    isTextBox: true,
+    x: 0.42,
+    y: 3.62,
+    w: 3.2,
+    h: 0.3,
+    margin: 0,
+    fontFace: BODY_FONT,
+    fontSize: 11,
+    color: MUTED,
+  });
+
+  slide.addNotes(c.notes);
+
+  const file = path.join(OUT, c.id + '.pptx');
+  await pres.writeFile({ fileName: file });
+  console.log('wrote ' + file);
+}

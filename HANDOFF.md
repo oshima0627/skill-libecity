@@ -75,6 +75,9 @@
 3. **原稿を作成** — `listings/02-teiji-jikko.md` / `03-henkou-kenchi.md` / `04-gyomu-system.md`
 4. **サムネイル3枚を作成** — `listings/assets/*.png`（1320×880 = 3:2）
 5. **3件を出品** — 37160 / 37161 / 37162
+6. **サムネイルを全面的に作り直した**（1回目の濃紺・文字だけの画像は一覧で沈むため）。
+   上位競合のサムネイルを実測 → 明るい背景・イラスト入り・太い見出しへ。
+   PowerPoint（`listings/assets/pptx/*.pptx`）で組み、LibreOffice で PNG 化して差し替えた
 
 ### 検証済みの事実（実際に画面に出した出力）
 
@@ -84,6 +87,9 @@
   **含まれないことを確認**（`Notion` は37160の「関連サービス」欄に出る他人の出品タイトルで、自分の記載ではない）
 - `search?parent_category=7&sort=new` で **37162 / 37161 / 37160 が上位3件**に並ぶことを確認
 - サムネイル3枚を目視確認。日本語の豆腐化・プレースホルダ残りなし
+- 画像差し替え後、`/services/<id>` の HTML を取得して**画像IDが 114213 / 114214 / 114215 に入れ替わっている**ことを確認。
+  差し替え前の 114183 系は残っていない
+- 公開されている実物（`storage.googleapis.com` の 1320×880 PNG）をダウンロードして目視確認
 - **既存出品の書き換えでは新着枠に戻らない**: 新着36件のIDは36410〜37152番台で、
   34120/34217/34218 は1件も含まれなかった。34217 は08-14の書き換え後17日で閲覧 7→9（+2）
 
@@ -197,20 +203,32 @@ return out})()
 **注意**: ページ下部の「関連サービス」に他人の出品が入るため、単純な文字列一致だと誤検知する。
 ヒットしたら `raw.indexOf()` で前後を見て、自分の本文か確認すること。
 
-### サムネイル画像の作り方（今回確立）
+### サムネイル画像の作り方
 
-**Canva MCP はこのセッションでは接続されていなかった。** 代わりに HTML → Chrome ヘッドレスで作った。
-AI生成と違い日本語が確実に出て、3:2 ちょうどになる。
+**手順・落とし穴・デザイン方針はすべて [`listings/assets/README.md`](listings/assets/README.md) にある。**
+編集したいときは `listings/assets/pptx/*.pptx` を PowerPoint で開く。
 
-```bash
-node listings/assets/generate-thumbnails.mjs
-"/c/Program Files/Google/Chrome/Application/chrome.exe" --headless --disable-gpu --hide-scrollbars \
-  --force-device-scale-factor=2 --window-size=660,440 \
-  --screenshot=listings/assets/02-teiji-jikko.png \
-  "file:///C:/.../listings/assets/02-teiji-jikko.html"
+要点だけ:
+
+- **AI画像生成は使えなかった。** Gamma はクレジット切れ（403 Insufficient credits）、Canva MCP は未接続。
+  イラストは SVG で自作して透過PNG化している（`listings/assets/illust/`）
+- 見出しフォントは **`HGP創英角ｺﾞｼｯｸUB`（半角カナ）**。全角で書くと LibreOffice が明朝に置換する
+- `soffice --convert-to png` は1枚目のスライドしか出さないので、**1ファイル1スライド**にしている
+- pptxスキルの `scripts/office/soffice.py` は Windows で動かない（`socket.AF_UNIX` が無い）。
+  `soffice.exe` を直接呼ぶ。`validate.py` は `PYTHONUTF8=1` を付けないと正常なファイルでも FAILED になる
+
+### 出品済みの画像を差し替える手順
+
+編集画面の「削除」ボタンは `span.file_removeBtn` で幅0（ホバーで出る）ため、
+`.click()` も座標クリックも効かない。**`li.selected_item` を DOM から消せばよい**
+（画像の実体は中の `input.hiddenImage` で送信されるため）。
+
+```js
+document.querySelectorAll('li.selected_item').forEach(li => li.remove());
 ```
 
-出力は 1320×880。**生成後は必ず Read で目視確認する。**
+そのあと `find` で `upload_image_files` の ref を取り、`file_upload` で新しい画像を入れ、
+`termsCheck` をチェックして `confirmButton` →「サービスを更新する」。
 
 ---
 
