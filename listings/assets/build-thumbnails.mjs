@@ -30,7 +30,6 @@ const CARDS = [
     accent: '2A9FD6',
     kicker: '定時実行の自動化',
     head: ['毎朝のPC作業、', '無人で。'],
-    price: '15,000円',
     illust: '01-teiji.png',
     notes: 'リベシティ スキルマーケット 出品37160 のサムネイル',
   },
@@ -39,7 +38,6 @@ const CARDS = [
     accent: '2FA36A',
     kicker: 'サイトの変更検知',
     head: ['更新を、', '見逃さない。'],
-    price: '10,000円',
     illust: '02-kenchi.png',
     notes: 'リベシティ スキルマーケット 出品37161 のサムネイル',
   },
@@ -48,7 +46,6 @@ const CARDS = [
     accent: 'D99312',
     kicker: '業務システム開発',
     head: ['テストを付けて', '納品します。'],
-    price: '150,000円〜',
     illust: '03-system.png',
     notes: 'リベシティ スキルマーケット 出品37162 のサムネイル',
   },
@@ -57,7 +54,6 @@ const CARDS = [
     accent: '4F63C4',
     kicker: 'AI活用の現状診断',
     head: ['やらない事も、', '書きます。'],
-    price: '5,000円',
     illust: '04-shindan.png',
     notes: 'リベシティ スキルマーケット 出品34217 のサムネイル',
   },
@@ -66,7 +62,6 @@ const CARDS = [
     accent: 'DB553F',
     kicker: '問い合わせの自動返信',
     head: ['返信を、', '待たせない。'],
-    price: '20,000円',
     illust: '05-mail.png',
     notes: 'リベシティ スキルマーケット 出品34218 のサムネイル',
   },
@@ -75,7 +70,6 @@ const CARDS = [
     accent: '10808A',
     kicker: '毎日の繰り返し作業',
     head: ['コピペと転記、', 'やめませんか。'],
-    price: '30,000円',
     illust: '06-jidoka.png',
     notes: 'リベシティ スキルマーケット 出品34120 のサムネイル',
   },
@@ -93,7 +87,7 @@ for (const c of CARDS) {
   slide.addImage({
     path: path.join(HERE, 'illust', c.illust),
     x: 3.42,
-    y: 0.6,
+    y: 0.66,
     w: 3.05,
     h: 3.05,
   });
@@ -102,7 +96,7 @@ for (const c of CARDS) {
   slide.addText(c.kicker, {
     isTextBox: true,
     x: 0.42,
-    y: 0.62,
+    y: 1.18,
     w: 3.0,
     h: 0.32,
     margin: 0,
@@ -117,9 +111,9 @@ for (const c of CARDS) {
   slide.addText(c.head.map((t, i) => ({ text: t, options: { breakLine: i < c.head.length - 1 } })), {
     isTextBox: true,
     x: 0.4,
-    y: 1.02,
+    y: 1.58,
     w: 3.2,
-    h: 1.5,
+    h: 1.3,
     margin: 0,
     fontFace: HEAD_FONT,
     fontSize: 34,
@@ -128,36 +122,11 @@ for (const c of CARDS) {
     valign: 'top',
   });
 
-  // 価格ピル
-  slide.addShape(pres.ShapeType.roundRect, {
-    x: 0.42,
-    y: 2.74,
-    w: 1.92,
-    h: 0.6,
-    rectRadius: 0.3,
-    fill: { color: c.accent },
-    line: { color: c.accent, width: 0 },
-  });
-  slide.addText(c.price, {
-    isTextBox: true,
-    x: 0.42,
-    y: 2.74,
-    w: 1.92,
-    h: 0.6,
-    margin: 0,
-    align: 'center',
-    valign: 'middle',
-    fontFace: BODY_FONT,
-    fontSize: 20,
-    bold: true,
-    color: 'FFFFFF',
-  });
-
   // 名前
   slide.addText('なおたか@沖縄の業務システム屋×AI', {
     isTextBox: true,
     x: 0.42,
-    y: 3.62,
+    y: 3.02,
     w: 3.2,
     h: 0.3,
     margin: 0,
